@@ -1,0 +1,194 @@
+-----------SQL Server Advanced Troubleshooting and Performance Tuning Best Practices and Techniques---------------
+# Source: https://www.oreilly.com/library/view/sql-server-advanced/9781098101916/
+------------------------------------------------------------------------------------------------------------------
+
+# SQL Server Setup and Configuration------------------------------
+# Hardware and Operating System Considerations: 
+     CPU, Memory, Disk Subsystem, Network, Operating Systems and Applications, Virtualization and Clouds.
+
+# Configuring Your SQL Server------------------------------------- 
+     SQL Server Version and Patching Level:           SELECT @@VERSION
+     Instant File Initialization (IFI): to enable     SA_MANAGE_VOLUME_NAME
+
+# check if IFI is enabled:   When IFI is enabled, it will only show zeroing out of the log ldf file
+    DBCC TRACEON(3004,3605,-1);
+    go
+    CREATE DATABASE Dummy;
+    go
+    EXEC sp_readerrorlog 0,1,N’Dummy’;
+    go
+    DROP DATABASE Dummy;
+    go
+    DBCC TRACEOFF(3004,3605,-1);
+    go
+    
+# Tempdb Configuration:
+# Trace Flags:              DBCC TRACESTATUS
+     enable them in SQL Server Configuration Manager and/or by using     -T SQL Server 
+     
+# Server Options:      
+      Optimize for Ad-hoc Workloads, Max Server Memory, Affinity Mask, Parallelism, Configuration Settings
+
+     -shows how to analyze SQL Server schedulers (CPUs) distribution between NUMA nodes. Look at the count of schedulers for
+      each parent_node_id column in the output  
+      -----------------------------------------
+      SELECT
+        parent_node_id
+        ,COUNT(*) as [Schedulers]
+        ,SUM(current_tasks_count) as [Current]
+        ,SUM(runnable_tasks_count) as [Runnable]
+      FROM sys.dm_os_schedulers
+      WHERE status = 'VISIBLE ONLINE'
+      GROUP BY parent_node_id;
+      
+     -Detecting changes in server configuration settings
+      -----------------------------------------
+      DECLARE
+        @defaults TABLE
+        (
+          name SYSNAME NOT NULL PRIMARY KEY,
+          def_value SQL_VARIANT NOT NULL
+         )
+      INSERT INTO @defaults(name,def_value) VALUES('backup compression
+      default',0);
+      INSERT INTO @defaults(name,def_value) VALUES('cost threshold for
+      parallelism',5);
+      INSERT INTO @defaults(name,def_value) VALUES('max degree of
+      parallelism',0);
+      INSERT INTO @defaults(name,def_value) VALUES('max server memory
+      (MB)',2147483647);
+      INSERT INTO @defaults(name,def_value) VALUES('optimize for ad hoc
+      workloads',0);
+      /* Other settings are ommited in the book */
+      SELECT
+        c.name, c.description, c.value_in_use, c.value
+        ,d.def_value, c.is_dynamic, c.is_advanced
+      FROM
+        sys.configurations c JOIN @defaults d ON
+        c.name = d.name
+      WHERE
+        c.value_in_use <> d.def_value OR
+        c.value <> d.def_value
+      ORDER BY
+        c.name;
+        
+# Configuring Your Databases--------------------  
+      Database Settings:    DBCC SHRINKFILE
+                            CHECKSUM
+                            LEGACY_CARDINALITY_ESTIMATION
+      Transaction Log Settings:                         
+      Data Files and Filegroups:                      
+                            
+# Analyzing SQL Server Error Log-----------------                                                        
+-------------------------------------------------                           
+      IF OBJECT_ID('tempdb..#Logs',N'U') IS NOT NULL DROP TABLE #Logs;
+      IF OBJECT_ID('tempdb..#Errors',N'U') IS NOT NULL DROP TABLE
+      #Errors;
+      go
+      CREATE TABLE #Errors
+      (
+        LogNum INT NULL,
+        LogDate DATETIME NULL,
+        ID INT NOT NULL identity(1,1),
+        ProcessInfo VARCHAR(50) NULL,
+        [Text] VARCHAR(MAX) NULL,
+        PRIMARY KEY(ID)
+      );
+      CREATE TABLE #Logs
+      (
+        [LogDate] DATETIME NULL,
+        ProcessInfo VARCHAR(50) NULL,
+        [Text] VARCHAR(max) NULL
+      );
+      DECLARE
+        @StartDate DATETIME = DATEADD(DAY,-7,GETDATE())
+        ,@EndDate DATETIME = GETDATE()
+        ,@NumErrorLogs INT = 1
+        ,@ExcludeLogonErrors BIT = 1
+        ,@ShowSurroundingEvents BIT = 1
+        ,@ExcludeLogonSurroundingEvents BIT = 1
+        ,@SurroundingEventsBeforeSecond INT = 5
+        ,@SurroundingEventsAfterSecond INT = 5 ,@LogNum INT = 0;
+      DECLARE
+        @ErrorsToIgnore TABLE
+        (
+          ErrorText NVARCHAR(1024) NOT NULL
+        );
+      INSERT INTO @ErrorsToIgnore(ErrorText)
+      VALUES
+        (N'Registry startup parameters:%'),
+        (N'Logging SQL Server messages in file%'),
+        (N'CHECKDB for database%finished without errors%');
+      WHILE (@LogNum <= @NumErrorLogs)
+      BEGIN
+        INSERT INTO #Errors(LogDate,ProcessInfo,Text)
+          EXEC [master].[dbo].[xp_readerrorlog]
+            @LogNum, 1, N'error', NULL, @StartDate, @EndDate, N'desc';
+        IF @@ROWCOUNT > 0
+          UPDATE #Errors SET LogNum = @LogNum WHERE LogNum IS NULL;
+        SET @LogNum += 1;
+      END;
+      
+      IF @ExcludeLogonErrors = 1
+        DELETE FROM #Errors WHERE ProcessInfo = 'Logon';
+      DELETE FROM e
+      FROM #Errors e
+      WHERE EXISTS
+      (
+        SELECT *
+        FROM @ErrorsToIgnore i
+        WHERE e.Text LIKE i.ErrorText
+      );
+      -- Errors only
+      SELECT * FROM #Errors ORDER BY LogDate DESC;
+      
+      IF @@ROWCOUNT > 0 AND @ShowSurroundingEvents = 1
+      BEGIN
+        DECLARE
+         @LogDate DATETIME
+         ,@ID INT = 0
+     
+         WHILE 1 = 1
+         BEGIN
+          SELECT TOP 1 @LogNum = LogNum, @LogDate = LogDate, @ID = ID
+          FROM #Errors
+          WHERE ID > @ID
+          ORDER BY ID;
+          
+        IF @@ROWCOUNT = 0
+          BREAK;
+          
+        SELECT
+          @StartDate = DATEADD(SECOND, -@SurroundingEventsBeforeSecond,
+      @LogDate)
+          ,@EndDate = DATEADD(SECONd, @SurroundingEventsAfterSecond,
+      @LogDate);
+      
+          INSERT INTO #Logs(LogDate,ProcessInfo,Text)
+           EXEC [master].[dbo].[xp_readerrorlog]
+            @LogNum, 1, NULL, NULL, @StartDate, @EndDate;
+      END;
+      
+        IF @ExcludeLogonSurroundingEvents = 1
+          DELETE FROM #Logs WHERE ProcessInfo = 'Logon';
+        DELETE FROM e
+        FROM #Logs e
+        WHERE EXISTS
+        (
+          SELECT *
+          FROM @ErrorsToIgnore i
+          WHERE e.Text LIKE i.ErrorText
+        );
+        SELECT * FROM #Logs ORDER BY LogDate DESC;
+      END                            
+                            
+# Consolidating Instances and Databases------------------                            
+  Page 35                          
+                            
+                            
+                            
+                            
+      
+      
+      
+     
