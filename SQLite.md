@@ -17,6 +17,46 @@
     Selecting a database interface
     Setting up ODBC Drivers
 
+SQL translation: https://solutions.posit.co/connections/db/advanced/translation/
+
+
+## Databases
+Name	                 Posit Pro Driver	  dplyr support	    Connect via R package
+Amazon  Redshift	     ✅	                ✅	
+Apache Hive	             ✅	                ✅	
+Apache Impala	         ✅              	✅	
+Athena	                 ✅		
+Cassandra	             ✅		
+Google BigQuery	         ✅	                ✅                bigrquery
+Microsoft SQL Server	 ✅	                ✅	
+MonetDB                                       ✅               MonetDBLite
+MongoDB	                 ✅		
+MySQL	                 ✅	                ✅                RMariaDB
+Netezza	                 ✅		
+Oracle	                 ✅	                ✅	
+PostgreSQL	             ✅	                ✅	             RPostgres
+SQLite		                                  ✅	               RSQLite
+Salesforce	             ✅		
+Snowflake	             ✅	                ✅	
+Teradata	             ✅	                ✅	
+Other Databases
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
