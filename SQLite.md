@@ -22,7 +22,7 @@ SQL translation: https://solutions.posit.co/connections/db/advanced/translation/
 
 ## Databases
     Name	                 Posit Pro Driver	  dplyr support	    Connect via R package
-    Amazon  Redshift	     ✅	                ✅	
+    Amazon Redshift	         ✅	                ✅	
     Apache Hive	             ✅	                ✅	
     Apache Impala	         ✅              	✅	
     Athena	                 ✅		
