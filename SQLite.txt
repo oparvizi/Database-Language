@@ -1,0 +1,2 @@
+# Best Practices in Working with Databases:  https://solutions.posit.co/connections/db/
+# Source: https://www.sqlitetutorial.net/
