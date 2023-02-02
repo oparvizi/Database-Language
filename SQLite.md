@@ -1,4 +1,4 @@
-# POSIT: Best Practices in Working with Databases:   https://solutions.posit.co/connections/db/
+POSIT: Best Practices in Working with Databases:   https://solutions.posit.co/connections/db/
 
 ##  R packages: dplyr, DBI, odbc, keyring and pool
     Using an ODBC driver:                       https://solutions.posit.co/connections/db/r-packages/odbc/
@@ -34,7 +34,7 @@ SQL translation: https://solutions.posit.co/connections/db/advanced/translation/
     MySQL	                      RMariaDB
     Netezza	                 		
     Oracle	                 	                	
-    PostgreSQL	         	      RPostgres
+    PostgreSQL	                  RPostgres
     SQLite		                  RSQLite
     Salesforce	         		    
     Snowflake	         	                  	
