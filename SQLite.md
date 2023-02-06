@@ -16,8 +16,7 @@ POSIT: Best Practices in Working with Databases:   https://solutions.posit.co/co
     Securing Deployed Content
     Selecting a database interface
     Setting up ODBC Drivers
-
-SQL translation: https://solutions.posit.co/connections/db/advanced/translation/
+    SQL translation:  https://solutions.posit.co/connections/db/advanced/translation/
 
 
 ## Databases                    https://solutions.posit.co/connections/db/databases/
@@ -44,8 +43,8 @@ SQL translation: https://solutions.posit.co/connections/db/advanced/translation/
 
 ## Creating a SQLite database for use with R
 
-    source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-with-r/
-    NYC OpenData: https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2017/2bnn-yakx
+source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-with-r/
+NYC OpenData: https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2017/2bnn-yakx
 
 
 - Installing SQLite: https://sqlite.org/download.html
