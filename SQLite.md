@@ -49,55 +49,57 @@ source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-wit
 - Start: Open SQLite, double-click on sqlite3.exe
 ## Creating a database: 
    - change our working directory  
-        sqlite> .cd 'C:\Users\...path...\data'  # Don’t type sqlite>. That’s the prompt. 
+            
+            sqlite> .cd 'C:\Users\...path...\data'  # Don’t type sqlite>. That’s the prompt. 
                                              # Type what’s after the prompt. Obviously your path will be specific to your computer.
    
    - create a table 
-        sqlite> create table pvi (
-        [Summons Number] int,
-        [Plate ID] varchar(10),
-        [Registration State] varchar(4),
-        [Plate Type] varchar(5),
-        [Issue Date] varchar(20),
-        [Violation Code Number] int,
-        [Vehicle Body Type] varchar(256),
-        [Vehicle Make] varchar(256),
-        [Issuing Agency] varchar(256),
-        [Street Code1] int,
-        [Street Code2] int,
-        [Street Code3] int,
-        [Vehicle Expiration Date] int,
-        [Violation Location] varchar(256),
-        [Violation Precinct] int,
-        [Issuer Precinct] int,
-        [Issuer Code] int,
-        [Issuer Command] varchar(256),
-        [Issuer Squad] varchar(256),
-        [Violation Time] varchar(256),
-        [Time First Observed] varchar(256),
-        [Violation County] varchar(256),
-        [Violation In Front Of Or Opposite] varchar(256),
-        [House Number] varchar(256),
-        [Street Name] varchar(256),
-        [Intersecting Street] varchar(256),
-        [Date First Observed] int,
-        [Law Section] int,
-        [Sub Division] varchar(256),
-        [Violation Legal Code] varchar(256),
-        [Days Parking In Effect]  varchar(256),
-        [From Hours In Effect] varchar(256),
-        [To Hours In Effec]t varchar(256),
-        [Vehicle Color] varchar(256),
-        [Unregistered Vehicle?] varchar(256),
-        [Vehicle Year] int,
-        [Meter] int,
-        [Feet From Curb] int,
-        [Violation Post Code] varchar(256),
-        [Violation Description] varchar(256),
-        [No Standing or Stopping Violation] varchar(256),
-        [Hydrant Violation] varchar(256),
-        [Double Parking Violation] varchar(256)
-        );
+   
+            sqlite> create table pvi (
+            [Summons Number] int,
+            [Plate ID] varchar(10),
+            [Registration State] varchar(4),
+            [Plate Type] varchar(5),
+            [Issue Date] varchar(20),
+            [Violation Code Number] int,
+            [Vehicle Body Type] varchar(256),
+            [Vehicle Make] varchar(256),
+            [Issuing Agency] varchar(256),
+            [Street Code1] int,
+            [Street Code2] int,
+            [Street Code3] int,
+            [Vehicle Expiration Date] int,
+            [Violation Location] varchar(256),
+            [Violation Precinct] int,
+            [Issuer Precinct] int,
+            [Issuer Code] int,
+            [Issuer Command] varchar(256),
+            [Issuer Squad] varchar(256),
+            [Violation Time] varchar(256),
+            [Time First Observed] varchar(256),
+            [Violation County] varchar(256),
+            [Violation In Front Of Or Opposite] varchar(256),
+            [House Number] varchar(256),
+            [Street Name] varchar(256),
+            [Intersecting Street] varchar(256),
+            [Date First Observed] int,
+            [Law Section] int,
+            [Sub Division] varchar(256),
+            [Violation Legal Code] varchar(256),
+            [Days Parking In Effect]  varchar(256),
+            [From Hours In Effect] varchar(256),
+            [To Hours In Effec]t varchar(256),
+            [Vehicle Color] varchar(256),
+            [Unregistered Vehicle?] varchar(256),
+            [Vehicle Year] int,
+            [Meter] int,
+            [Feet From Curb] int,
+            [Violation Post Code] varchar(256),
+            [Violation Description] varchar(256),
+            [No Standing or Stopping Violation] varchar(256),
+            [Hydrant Violation] varchar(256),
+            [Double Parking Violation] varchar(256)
+            );
     
    - import the csv file
         sqlite> .mode csv
@@ -111,11 +113,11 @@ source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-wit
 ## Adding an index to the database
    - add an index, or several indices: https://www.sqlite.org/queryplanner.html
    
-        sqlite> create index [Registration State] on pvi([Registration State]);   # The general guideline is to create indices for columns of interest, particularly                                                                                       those that you will use to subset or filter the data.
+            sqlite> create index [Registration State] on pvi([Registration State]);   # The general guideline is to create indices for columns of interest,                                                                                                   particularly those that you will use to subset or filter the data.
        
    - exit the sqlite program  
     
-        sqlite> .exit
+            sqlite> .exit
         
 ## Connect to the database in R
 
