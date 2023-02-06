@@ -55,7 +55,9 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
        
             sqlite> .cd 'C:\Users\...path...\data'  
         
-        
+       create a new empty database 
+       
+            .open pvi.db
    
    - create a table 
    
