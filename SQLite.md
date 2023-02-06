@@ -42,8 +42,10 @@ SQL translation: https://solutions.posit.co/connections/db/advanced/translation/
   
 
 
-#Creating a SQLite database for use with R----------------------------
+## Creating a SQLite database for use with R
 source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-with-r/
+NYC OpenData: https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2017/2bnn-yakx
+
 
 - Installing SQLite: https://sqlite.org/download.html
 - Start: Open SQLite, double-click on sqlite3.exe
