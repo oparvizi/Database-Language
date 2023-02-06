@@ -136,7 +136,7 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
     install.packages(c("DBI", "dplyr", "dbplyr", "RSQLite"))
     library(DBI)
     library(dplyr)
-    setwd("C:/path/to/pvi.db")
+    setwd("C:/path/to db directory")
     con <- dbConnect(RSQLite::SQLite(), "pvi.db")
     pvi <- tbl(con, "pvi")
     
