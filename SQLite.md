@@ -49,9 +49,11 @@ source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-wit
 - Start: Open SQLite, double-click on sqlite3.exe
 ## Creating a database: 
    - change our working directory  
-            
-            sqlite> .cd 'C:\Users\...path...\data'  # Don’t type sqlite>. That’s the prompt. 
-                                             # Type what’s after the prompt. Obviously your path will be specific to your computer.
+       Don’t type sqlite>. That’s the prompt. Type what’s after the prompt. Obviously your path will be specific to your computer.    
+       
+            sqlite> .cd 'C:\Users\...path...\data'  
+        
+        
    
    - create a table 
    
@@ -102,18 +104,24 @@ source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-wit
             );
     
    - import the csv file
-        sqlite> .mode csv
-        sqlite> .import pvi_2017.csv pvi
+        
+            sqlite> .mode csv
+            sqlite> .import pvi_2017.csv pvi
 
         The only catch is, since the table was already created, the .import command will import the entire CSV file including the header.
         That means we need to do a little minor clean up once the import finishes to remove the extra record with the column names. 
         One way we can do that is as follows:
        
-        sqlite> delete from pvi where typeof([Violation Code Number]) == "text";  # find the row where the data type in the Violation Code Number cell is text, and                                                                                         delete it.
+            sqlite> delete from pvi where typeof([Violation Code Number]) == "text";  # 
+            
+        Find the row where the data type in the Violation Code Number cell is text, and delete it.
+        
 ## Adding an index to the database
    - add an index, or several indices: https://www.sqlite.org/queryplanner.html
    
-            sqlite> create index [Registration State] on pvi([Registration State]);   # The general guideline is to create indices for columns of interest,                                                                                                   particularly those that you will use to subset or filter the data.
+            sqlite> create index [Registration State] on pvi([Registration State]);   # 
+            
+        The general guideline is to create indices for columns of interest, particularly those that you will use to subset or filter the data.
        
    - exit the sqlite program  
     
