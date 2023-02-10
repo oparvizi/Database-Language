@@ -525,7 +525,7 @@ ULL OUTER JOIN is a combination of  a LEFT JOIN and a RIGHT JOIN. The result set
     );   
    AUTOINCREMENT – explain how the AUTOINCREMENT column attribute works and why you should avoid using it.
 
-## Section 13. Views
+## Views
    Create View – introduce you to the view concept and show you how to create a new view in the database.
    
     CREATE [TEMP] VIEW [IF NOT EXISTS] view_name[(column-name-list)]
