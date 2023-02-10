@@ -139,6 +139,10 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
     setwd("C:/path/to db directory")
     con <- dbConnect(RSQLite::SQLite(), "pvi.db")
     pvi <- tbl(con, "pvi")
+
+## Get Column Names in SQLite Database
+
+    PRAGMA table_info(table_name);
     
 ## Submit queries to the database
     
