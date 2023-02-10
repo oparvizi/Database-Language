@@ -160,11 +160,43 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
     View the entire collection: https://data.library.virginia.edu/category/statlab-articles/
     
     
+## SQLite INNER JOIN
+returns the album titles and their artist names:
     
+    SELECT
+        l.Title, 
+        r.Name
+    FROM
+        albums l
+    INNER JOIN artists r ON
+        r.ArtistId = l.ArtistId;
+matches each row
+
+    SELECT
+       Title, 
+       Name
+    FROM
+       albums
+    INNER JOIN artists USING(ArtistId);     
+column names of joined tables are the same
+
+     SELECT
+       Title, 
+       Name
+    FROM
+       albums
+    INNER JOIN artists USING(ArtistId);   
+find artists who don’t have any albums
     
-    
-    
-    
+    SELECT
+        Name,
+        Title
+    FROM
+        artists
+    LEFT JOIN albums ON
+        artists.ArtistId = albums.ArtistId
+    WHERE Title IS NULL   
+    ORDER BY Name;    
     
     
     
