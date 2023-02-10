@@ -426,48 +426,196 @@ ULL OUTER JOIN is a combination of  a LEFT JOIN and a RIGHT JOIN. The result set
 ## Data definition
    SQLite Data Types – introduce you to the SQLite dynamic type system and its important concepts: storage classes, manifest typing, and type affinity.
    
-   SELECT
+    SELECT
 	typeof(100),
 	typeof(10.0),
 	typeof('100'),
 	typeof(x'1000'),
 	typeof(NULL);
    Create Table – show you how to create a new table in the database.
+   
+    CREATE TABLE [IF NOT EXISTS] [schema_name].table_name (
+	column_1 data_type PRIMARY KEY,
+   	column_2 data_type NOT NULL,
+	column_3 data_type DEFAULT 0,
+	table_constraints
+	) [WITHOUT ROWID];
+   
    Alter Table – show you how to use modify the structure of an existing table.
-   Rename column – learn step by step how to rename a column of a table.
-   Drop Table – guide you on how to remove a table from the database.
-   VACUUM – show you how to optimize database files.
+   * https://www.sqlitetutorial.net/sqlite-alter-table/
+   
+    ALTER TABLE existing_table
+    RENAME TO new_table;
 
+   Rename column – learn step by step how to rename a column of a table.
+    
+    ALTER TABLE table_name
+    RENAME COLUMN current_name TO new_name;
+   
+   Drop Table – guide you on how to remove a table from the database.
+   
+    DROP TABLE [IF EXISTS] [schema_name.]table_name;
+   VACUUM – show you how to optimize database files.
+   
+    VACUUM;
+    PRAGMA auto_vacuum = FULL;
+    PRAGMA auto_vacuum = INCREMENTAL;
+    PRAGMA auto_vacuum = NONE;
+    VACUUM schema-name INTO filename;
+
+    VACUUM main INTO 'c:\sqlite\db\chinook_backup.db';
 ## Constraints
    Primary Key – show you how to define the primary key for a table.
+   
+    CREATE TABLE table_name(
+    column_1 INTEGER NOT NULL PRIMARY KEY,
+    ...
+    );
+    
+    CREATE TABLE table_name(
+    column_1 INTEGER NOT NULL,
+    column_2 INTEGER NOT NULL,
+    ...
+    PRIMARY KEY(column_1,column_2,...)
+    );
+   
+    CREATE TABLE table(
+    pk INTEGER PRIMARY KEY DESC,
+    ...
+    );
    NOT NULL constraint – learn how to enforce values of columns that are not NULL.
+   
+    CREATE TABLE table_name (
+    ...,
+    column_name type_name NOT NULL,
+    ...
+    );
    UNIQUE constraint – ensure values in a column or a group of columns are unique.
+   for a column at the column level:
+   
+    CREATE TABLE table_name(
+    ...,
+    column_name type UNIQUE,
+    ...
+    );
+  Or at the table level:
+  
+    CREATE TABLE table_name(
+    ...,
+    UNIQUE(column_name)
+    );
+  constraint for multiple columns:
+  
+    CREATE TABLE table_name(
+    ...,
+    UNIQUE(column_name1,column_name2,...)
+    );
+   
    CHECK constraint – ensure the values in a column meet a specified condition defined by an expression.
+   
+    CREATE TABLE table_name(
+    ...,
+    column_name data_type CHECK(expression),
+    ...
+    );
+   
+    CREATE TABLE table_name(
+    ...,
+    CHECK(expression)
+    );   
    AUTOINCREMENT – explain how the AUTOINCREMENT column attribute works and why you should avoid using it.
 
 ## Section 13. Views
    Create View – introduce you to the view concept and show you how to create a new view in the database.
+   
+    CREATE [TEMP] VIEW [IF NOT EXISTS] view_name[(column-name-list)]
+    AS 
+      select-statement;
    Drop View – show you how to drop a view from its database schema.
    
+    DROP VIEW [IF EXISTS] [schema_name.]view_name;
 ## Indexes
    Index – teach you about the index and how to utilize indexes to speed up your queries.
+  
+    CREATE [UNIQUE] INDEX index_name 
+    ON table_name(column_list);
    Index for Expressions – show you how to use the expression-based index.
 
 ## Triggers
    Trigger – manage triggers in the SQLite database.
+   
+    CREATE TRIGGER [IF NOT EXISTS] trigger_name 
+    	[BEFORE|AFTER|INSTEAD OF] [INSERT|UPDATE|DELETE] 
+    	ON table_name
+    	[WHEN condition]
+    BEGIN
+    	statements;
+    END;
    Create INSTEAD OF triggers – learn about INSTEAD OF triggers and how to create an INSTEAD OF trigger to update data via a view.
-
+   
+    CREATE TRIGGER [IF NOT EXISTS] schema_ame.trigger_name
+    	INSTEAD OF [DELETE | INSERT | UPDATE OF column_name]
+    	ON table_name
+    BEGIN
+    	-- insert code here
+    END;
 ## Full-text search
    Full-text search – get started with the full-text search in SQLite.
-
+   
+    CREATE VIRTUAL TABLE table_name 
+    USING FTS5(column1,column2...);
 ## SQLite tools
    SQLite Commands – show you the most commonly used command in the sqlite3 program.
+   
+    .table '%es'
+    .schema albums
+    .fullschema
+    .indexes albums
+    .indexes %es
+    .output albums.txt
+    
+    .mode column
+    .header on
+    .read c:/sqlite/commands.txt 
    SQLite Show Tables – list all tables in a database.
+   create a new temporary table named temp_table1:
+   
+    CREATE TEMPORARY TABLE temp_table1( name TEXT );
+    .tables pattern
+    .table 'a%'
    SQLite Describe Table – show the structure of a table.
+   
+    .schema table_name
+    .header on
+    .mode column
+    pragma table_info('albums');
    SQLite Dump – how to use the .dump command to back up and restore a database.
+   Dump the entire database
+   
+    sqlite> .output c:/sqlite/chinook.sql
+    sqlite> .dump
+    sqlite> .exit
+   Dump a specific table 
+   
+    sqlite> .output c:/sqlite/albums.sql
+    sqlite> .dump albums
+    sqlite> .quit
    SQLite Import CSV – import CSV files into a table.
+   
+    sqlite> .mode csv
+    sqlite> .import c:/sqlite/city_no_header.csv cities
    SQLite Export CSV – export an SQLite database to CSV files.
 
+    >sqlite3 c:/sqlite/chinook.db
+    sqlite> .headers on
+    sqlite> .mode csv
+    sqlite> .output data.csv
+    sqlite> SELECT customerid,
+    ...>        firstname,
+    ...>        lastname,
+    ...>        company
+    ...>   FROM customers;
+    sqlite> .quit
 
 
 
