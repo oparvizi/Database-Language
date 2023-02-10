@@ -143,6 +143,7 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
 ## Get Column Names in SQLite Database
 
     PRAGMA table_info(table_name);
+    SELECT name FROM PRAGMA_TABLE_INFO("table_name");
     
 ## Submit queries to the database
     
