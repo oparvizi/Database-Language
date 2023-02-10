@@ -329,13 +329,100 @@ ULL OUTER JOIN is a combination of  a LEFT JOIN and a RIGHT JOIN. The result set
     END
 ## Changing data
    Insert – insert rows into a table
+   
+    INSERT INTO table (column1,column2 ,..)
+    VALUES( value1,	value2 ,...);
    Update – update existing rows in a table.
+   
+    UPDATE table
+    SET column_1 = new_value_1,
+        column_2 = new_value_2
+    WHERE
+        search_condition 
+    ORDER column_or_expression
+    LIMIT row_count OFFSET offset;
    Delete – delete rows from a table.
+   
+    DELETE FROM table
+    WHERE search_condition
+    ORDER BY criteria
+    LIMIT row_count OFFSET offset;
    Replace – insert a new row or replace the existing row in a table.
+   
+    INSERT OR REPLACE INTO table(column_list)
+    VALUES(value_list);
+    
+    REPLACE INTO table(column_list)
+    VALUES(value_list);
+    
+    CREATE TABLE IF NOT EXISTS positions (
+	id INTEGER PRIMARY KEY,
+	title TEXT NOT NULL,
+	min_salary NUMERIC
+    );
 
 ## Transactions
    Transaction – show you how to handle transactions in SQLite.
+   Open a transaction
+   
+    BEGIN TRANSACTION;
+   Select or update data in the database. Note that the change is only visible to the current session (or client).
+    COMMIT; 
+    COMMIT TRANSACTION;
+   If you do not want to save the changes, you can roll back using the ROLLBACK or ROLLBACK TRANSACTION statement:
+   
+    ROLLBACK;
+    ROLLBACK TRANSACTION
+   EXAMPLE1:
+   
+    CREATE TABLE accounts ( 
+	account_no INTEGER NOT NULL, 
+	balance DECIMAL NOT NULL DEFAULT 0,
+	PRIMARY KEY(account_no),
+        CHECK(balance >= 0)
+    );
 
+    CREATE TABLE account_changes (
+        change_no INT NOT NULL PRIMARY KEY,
+        account_no INTEGER NOT NULL, 
+        flag TEXT NOT NULL, 
+        amount DECIMAL NOT NULL, 
+        changed_at TEXT NOT NULL 
+    );
+    INSERT INTO accounts (account_no,balance)
+    VALUES (100,20100);
+    INSERT INTO accounts (account_no,balance)
+    VALUES (200,10100);
+    SELECT * FROM accounts;
+    
+    BEGIN TRANSACTION;
+    UPDATE accounts
+       SET balance = balance - 1000
+     WHERE account_no = 100;
+    UPDATE accounts
+       SET balance = balance + 1000
+     WHERE account_no = 200;
+    INSERT INTO account_changes(account_no,flag,amount,changed_at) 
+    VALUES(100,'-',1000,datetime('now'));
+    INSERT INTO account_changes(account_no,flag,amount,changed_at) 
+    VALUES(200,'+',1000,datetime('now'));
+    COMMIT;
+    
+    SELECT * FROM accounts;
+    SELECT * FROM account_changes;
+   EXAMPLE2:  
+     
+    BEGIN TRANSACTION;
+    UPDATE accounts
+       SET balance = balance - 20000
+    WHERE account_no = 100;
+    INSERT INTO account_changes(account_no,flag,amount,changed_at) 
+    VALUES(100,'-',20000,datetime('now'));  
+    [SQLITE_CONSTRAINT]  Abort due to constraint violation (CHECK constraint failed: accounts)
+    SELECT * FROM account_changes;
+    ROLLBACK;
+    SELECT * FROM account_changes;
+       
 ## Data definition
    SQLite Data Types – introduce you to the SQLite dynamic type system and its important concepts: storage classes, manifest typing, and type affinity.
    Create Table – show you how to create a new table in the database.
