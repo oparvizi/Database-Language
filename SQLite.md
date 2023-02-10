@@ -160,53 +160,86 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
     View the entire collection: https://data.library.virginia.edu/category/statlab-articles/
     
     
-## SQLite INNER JOIN
-returns the album titles and their artist names:
-    
-    SELECT
-        l.Title, 
-        r.Name
-    FROM
-        albums l
-    INNER JOIN artists r ON
-        r.ArtistId = l.ArtistId;
-matches each row
+## SQLite * JOIN
+INNER JOIN:
+Suppose you have two tables: A and B.
+A has a1, a2, and f columns. B has b1, b2, and f column. The A table links to the B table using a foreign key column named f.
+The following illustrates the syntax of the inner join clause:
+
+    SELECT a1, a2, b1, b2
+    FROM A
+    INNER JOIN B on B.f = A.f;
+LEFT JOIN:
+Suppose we have two tables: A and B.
+A has m and f columns.
+B has n and f columns.
+To perform join between A and B using LEFT JOIN clause, you use the following statement:
 
     SELECT
-       Title, 
-       Name
+        a,
+        b
     FROM
-       albums
-    INNER JOIN artists USING(ArtistId);     
-column names of joined tables are the same
+        A
+    LEFT JOIN B ON A.f = B.f
+    WHERE search_condition;
+CROSS JOIN:
+Suppose, the A table has N rows and B table has M rows, the CROSS JOIN of these two tables will produce a result set that contains NxM rows.
 
-     SELECT
-       Title, 
-       Name
+    SELECT *
+    FROM A JOIN B;
+   
+    SELECT *
+    FROM A
+    INNER JOIN B;
+    
+    SELECT *
+    FROM A
+    CROSS JOIN B;
+    
+    SELECT * 
+    FROM A, B;
+Self-Join:
+The self-join is a special kind of joins that allow you to join a table to itself using either LEFT JOIN or INNER JOIN clause. You use self-join to create a result set that joins the rows with the other rows within the same table.
+Because you cannot refer to the same table more than one in a query, you need to use a table alias to assign the table a different name when you use self-join.
+The self-join compares values of the same or different columns in the same table. Only one table is involved in the self-join.
+You often use self-join to query parents/child relationship stored in a table or to obtain running totals.
+
+    SELECT m.firstname || ' ' || m.lastname AS 'Manager',
+       e.firstname || ' ' || e.lastname AS 'Direct report' 
+    FROM employees e
+    INNER JOIN employees m ON m.employeeid = e.reportsto
+    ORDER BY manager;
+
+    SELECT DISTINCT
+        e1.city,
+        e1.firstName || ' ' || e1.lastname AS fullname
     FROM
-       albums
-    INNER JOIN artists USING(ArtistId);   
-find artists who don’t have any albums
-    
-    SELECT
-        Name,
-        Title
-    FROM
-        artists
-    LEFT JOIN albums ON
-        artists.ArtistId = albums.ArtistId
-    WHERE Title IS NULL   
-    ORDER BY Name;    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        employees e1
+    INNER JOIN employees e2 ON e2.city = e1.city 
+       AND (e1.firstname <> e2.firstname AND e1.lastname <> e2.lastname)
+    ORDER BY
+        e1.city;
+FULL OUTER JOIN:
+ULL OUTER JOIN is a combination of  a LEFT JOIN and a RIGHT JOIN. The result set of the full outer join has NULL values for every column of the table that does not have a matching row in the other table. For the matching rows, the FULL OUTER JOIN produces a single row with values from columns of the rows in both tables.
+
+    -- create and insert data into the dogs table
+    CREATE TABLE dogs (
+        type       TEXT,
+        color TEXT
+    );
+    INSERT INTO dogs(type, color) 
+    VALUES('Hunting','Black'), ('Guard','Brown');
+    -- create and insert data into the cats table
+    CREATE TABLE cats (
+        type       TEXT,
+        color TEXT
+    );
+    INSERT INTO cats(type,color) 
+    VALUES('Indoor','White'), 
+          ('Outdoor','Black');
+
+    SELECT * FROM dogs FULL OUTER JOIN cats ON dogs.color = cats.color; 
+
     
     
     
