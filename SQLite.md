@@ -242,19 +242,91 @@ ULL OUTER JOIN is a combination of  a LEFT JOIN and a RIGHT JOIN. The result set
 
 ## Grouping data 
    Group By – combine a set of rows into groups based on specified criteria. The GROUP BY clause helps you summarize data for reporting purposes.
+   Aggregate_function: MIN, MAX, SUM, COUNT, round or AVG
+    
+    SELECT 
+        column_1,
+        aggregate_function(column_2) 
+    FROM 
+        table
+    GROUP BY 
+        column_1,
+        column_2;
+   
    Having   – specify the conditions to filter the groups summarized by the GROUP BY clause.  
+   
+    SELECT
+        column_1, 
+            column_2,
+        aggregate_function (column_3)
+    FROM
+        table
+    GROUP BY
+        column_1,
+            column_2
+    HAVING
+        search_condition; 
 
 ## Set operators
    Union – combine result sets of multiple queries into a single result set. We also discuss the differences between UNION and UNION ALL clauses.
+   
+    query_1
+    UNION [ALL]
+    query_2
+    UNION [ALL]
+    query_3
+    ...;
+    
    Except – compare the result sets of two queries and returns distinct rows from the left query that are not output by the right query.
+   
+    SELECT select_list1
+    FROM table1
+    EXCEPT
+    SELECT select_list2
+    FROM table2
+
    Intersect – compare the result sets of two queries and returns distinct rows that are output by both queries.
     
+    SELECT select_list1
+    FROM table1
+    INTERSECT
+    SELECT select_list2
+    FROM table2
+   
 ## Subquery
    Subquery – introduce you to the SQLite subquery and correlated subquery.
+   A subquery is a SELECT statement nested in another statement. See the following statement.
+
+    SELECT column_1
+    FROM table_1
+    WHERE column_1 = (
+       SELECT column_1 
+       FROM table_2
+    );
+   The following query is the outer query:
+
+    SELECT column_1
+      FROM table_1
+     WHERE colum_1 =
+   And the following query is the subquery.
+
+    (SELECT column_1
+      FROM table_2)
+   
+   
    Exists operator – test for the existence of rows returned by a subquery.
     
+    EXISTS(subquery)
+    NOT EXISTS (subquery)
    Case – add conditional logic to the query.
-
+   The CASE expression is similar to the IF-THEN-ELSE statement in other programming languages.
+   
+    CASE case_expression
+         WHEN when_expression_1 THEN result_1
+         WHEN when_expression_2 THEN result_2
+         ...
+         [ ELSE result_else ] 
+    END
 ## Changing data
    Insert – insert rows into a table
    Update – update existing rows in a table.
