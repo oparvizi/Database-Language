@@ -425,6 +425,13 @@ ULL OUTER JOIN is a combination of  a LEFT JOIN and a RIGHT JOIN. The result set
        
 ## Data definition
    SQLite Data Types – introduce you to the SQLite dynamic type system and its important concepts: storage classes, manifest typing, and type affinity.
+   
+   SELECT
+	typeof(100),
+	typeof(10.0),
+	typeof('100'),
+	typeof(x'1000'),
+	typeof(NULL);
    Create Table – show you how to create a new table in the database.
    Alter Table – show you how to use modify the structure of an existing table.
    Rename column – learn step by step how to rename a column of a table.
