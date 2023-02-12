@@ -1,3 +1,34 @@
+## Selecting a random row in SQL
+ Select a random row with MySQL:
+ 
+    SELECT column FROM table
+    ORDER BY RAND()
+    LIMIT 1
+ Select a random row with PostgreSQL:
+     
+    SELECT column FROM table
+    ORDER BY RANDOM()
+    LIMIT 1
+ Select a random row with Microsoft SQL Server:
+    
+    SELECT TOP 1 column FROM table
+    ORDER BY NEWID()
+ Select a random row with IBM DB2
+	
+    SELECT column, RAND() as IDX 
+    FROM table 
+    ORDER BY IDX FETCH FIRST 1 ROWS ONLY
+ Select a random record with Oracle:
+	
+    SELECT column FROM
+    ( SELECT column FROM table
+     ORDER BY dbms_random.value )
+    WHERE rownum = 1
+ Select a random row with sqlite:
+	
+    SELECT column FROM table 
+    ORDER BY RANDOM() LIMIT 1
+
 source: https://www.airweb.org/article/2020/12/15/combining-data-from-multiple-sources-using-r
 ## Combining Data from Multiple Sources Using R
   
