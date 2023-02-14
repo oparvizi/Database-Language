@@ -109,8 +109,9 @@ NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violatio
     
    - import the csv file
         
-            sqlite> .mode csv
-            sqlite> .import pvi_2017.csv pvi
+             sqlite> .mode csv 
+	     sqlite> .separator ","	    
+             sqlite> .import pvi_2017.csv pvi
 
         The only catch is, since the table was already created, the .import command will import the entire CSV file including the header.
         That means we need to do a little minor clean up once the import finishes to remove the extra record with the column names. 
