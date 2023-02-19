@@ -1,7 +1,7 @@
 The aim of this part was to capture the main points in SQL by collecting the corresponding solutions.
 
-    File SQL Advanced:      SQL Server Advanced Troubleshooting and Performance
-    ASQLite*.md:            Applicable codes
-    File SQLite.md:         
-    SQL_Syntax.md:          Syntax collection
+    File SQL Advanced:              SQL Server Advanced Troubleshooting and Performance
+    ASQLite*.md:                    Applicable codes
+    CreatingSQLiteDatabase.md:      Creating a SQLite database
+    SQL_Syntax.md:                  Syntax collection
 
