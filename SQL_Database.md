@@ -1,6 +1,6 @@
 Source: https://www.w3schools.com/sql/sql_create_db.asp
 
-## SQL Database-------------------------
+SQL Database-------------------------
   
     CREATE DATABASE databasename;             # to create a new SQL database.                 
   
@@ -8,7 +8,7 @@ Source: https://www.w3schools.com/sql/sql_create_db.asp
   
      BACKUP DATABASE databasename             # to create a full back up of an existing SQL database.       
      TO DISK = 'filepath'; 
-##  SQL Table---------------------------
+SQL Table---------------------------
 
      CREATE TABLE table_name (               . 
       column1 datatype,
