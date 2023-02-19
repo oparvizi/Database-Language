@@ -349,10 +349,8 @@ Source: 	https://www.w3schools.com/sql/
 
 
 
-#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Source: https://www.sqlitetutorial.net/  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-## SQLite * JOIN
+## SQLite * JOIN--------------------------
 INNER JOIN:
 Suppose you have two tables: A and B.
 A has a1, a2, and f columns. B has b1, b2, and f column. The A table links to the B table using a foreign key column named f.
