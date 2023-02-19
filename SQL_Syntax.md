@@ -2,7 +2,7 @@
 # Source: https://www.w3schools.com/sql/  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # 	  https://sql-tutorial.de/home/start.php  +++++++++++++++++++++++++++++++++++++++++++++++++
 
-## ----------------------------------------------------------------------SQL AND, OR and NOT
+-------------------------------------------------------------------------SQL AND, OR and NOT
 SELECT column1, column2, ...
 FROM table_name
 WHERE condition1 AND condition2 AND condition3 ...;
@@ -16,19 +16,19 @@ FROM table_name
 WHERE NOT condition;
 
 
-## --------------------------------------------------------------------------ORDER BY Syntax
+-----------------------------------------------------------------------------ORDER BY Syntax
 SELECT column1, column2, ...
 FROM table_name
 ORDER BY column1, column2, ... ASC|DESC;
 
-## -----------------------------------------------------------------------INSERT INTO Syntax
+--------------------------------------------------------------------------INSERT INTO Syntax
 INSERT INTO table_name (column1, column2, column3, ...)
 VALUES (value1, value2, value3, ...);
 
 INSERT INTO table_name
 VALUES (value1, value2, value3, ...);
 
-## --------------------------------------------------------------------------SQL NULL Values
+-----------------------------------------------------------------------------SQL NULL Values
 SELECT column_names
 FROM table_name
 WHERE column_name IS NULL;
@@ -37,7 +37,7 @@ SELECT column_names
 FROM table_name
 WHERE column_name IS NOT NULL;
 
-## ----------------------------------------------------------------------------UPDATE Syntax
+-------------------------------------------------------------------------------UPDATE Syntax
 UPDATE table_name
 SET column1 = value1, column2 = value2, ...
 WHERE condition;
