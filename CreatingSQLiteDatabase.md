@@ -45,7 +45,7 @@ POSIT: Best Practices in Working with Databases:   https://solutions.posit.co/co
 source: https://data.library.virginia.edu/creating-a-sqlite-database-for-use-with-r/
 
 NYC OpenDatabase: https://data.cityofnewyork.us/City-Government/Parking-Violations-Issued-Fiscal-Year-2017/2bnn-yakx                       
----------------------------------The database will contain 10 800 000 x 43 data-------------------------------------
+     ---------------------------------The database will contain 10 800 000 x 43 data.-------------------------------------
 
 - Installing SQLite: https://sqlite.org/download.html
 - Start: Open SQLite, double-click on sqlite3.exe
