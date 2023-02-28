@@ -1,7 +1,7 @@
-SQL Server Tutorial: 	https://www.sqlservertutorial.net/          			
-SQLite Syntax: 		https://www.sqlitetutorial.net/      
-Source: 		https://www.w3schools.com/sql/          
-			https://sql-tutorial.de/home/start.php         
+SQL Server Tutorial: 	https://www.sqlservertutorial.net/                       			
+SQLite Syntax: 		https://www.sqlitetutorial.net/              
+Source: 		https://www.w3schools.com/sql/                   
+			https://sql-tutorial.de/home/start.php                 
 
 -------------------------------------------------------------------------SQL AND, OR and NOT
 	
