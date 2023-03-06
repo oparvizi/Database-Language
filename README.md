@@ -6,6 +6,6 @@ The aim of this part was to capture the main points in SQL by collecting the cor
     CreatingSQLiteDatabase.md:      Creating a SQLite database: 
                                         "The database will contain 10 800 000 x 43 data."
     File SQL Advanced:              SQL Server Advanced Troubleshooting and Performance
-                                    Selecting a random row in SQL
-    SQL_Syntax.md:                  Syntax collection
+    SQLite*.md                      Selecting a random row in SQL
+    SQLSQLite*.md_Syntax.md:        Syntax collection
     SyntaxDifferences.md            Syntax Differences, Tutorials, Exercises---WEBSITE
