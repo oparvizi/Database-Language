@@ -1,5 +1,7 @@
 The aim of this part was to capture the main points in SQL by collecting the corresponding solutions.
 
+    File                            Description
+    ----------------------------------------------------------------------------------------------------------------------------------
     File SQL Advanced:              SQL Server Advanced Troubleshooting and Performance
     ASQLite*.md:                    Applicable codes
     CreatingSQLiteDatabase.md:      Creating a SQLite database: 
